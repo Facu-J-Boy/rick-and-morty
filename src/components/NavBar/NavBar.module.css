@@ -1,0 +1,11 @@
+.nav_bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90vw;
+    margin-bottom: 10px;
+}
+
+.nav_bar input{
+    height: 20px;
+}
