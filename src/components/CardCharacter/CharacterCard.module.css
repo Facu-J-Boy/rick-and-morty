@@ -39,3 +39,47 @@
 .card:hover .button {
   display: flex;
 }
+
+@media screen and (max-width: 768px) {
+  .card {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 90vw;
+    height: auto;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .image_container {
+    width: 20%;
+    height: auto;
+    margin: 0px;
+    border: none;
+  }
+
+  .image_container img {
+    width: 100%;
+    height: auto;
+  }
+
+  .card h3 {
+    display: flex;
+    width: 80%;
+    justify-content: flex-start;
+    margin-left: -100px;
+    text-align: left;
+  }
+
+  .button {
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+  }
+
+  .button button {
+    margin-left: 50%;
+  }
+}
