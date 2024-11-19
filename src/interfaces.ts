@@ -2,7 +2,7 @@ export interface character {
   id?: number;
   name: string;
   image: string;
-  gender: string;
+  gender: string | undefined;
   origin: { name: string };
 }
 

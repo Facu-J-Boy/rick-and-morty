@@ -32,6 +32,7 @@ function App() {
         <Route path='/login' element={<Login type='login' />} />
         <Route path='/signup' element={<Login type='signup' />} />
         <Route path='/create' element={<CharacterForm type='create' />} />
+        <Route path='/edit/:id' element={<CharacterForm type='edit' />} />
       </Routes>
     </Router>
   );

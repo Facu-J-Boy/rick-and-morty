@@ -39,7 +39,11 @@ const characterSlice = createSlice({
           state.characters = [...action.payload, ...localCharacters];
           if (state.characters.length > 0) {
             state.genders = [
-              ...new Set(action.payload.map((character) => character.gender))
+              ...new Set(
+                action.payload.map((character) =>
+                  character.gender ? character.gender : ''
+                )
+              )
             ];
             state.origins = [
               ...new Set(

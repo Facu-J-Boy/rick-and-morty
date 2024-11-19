@@ -107,8 +107,10 @@ export const addCharacterToLocalStorage = ({
   // Guardar en localStorage
   localStorage.setItem('characters', JSON.stringify(updatedCharacters));
 
+  // Agregamos el nuevo personaje a la lista de personajes de redux
   dispatch(addCharacter(newCharacter));
 
+  // Redirigimos al home
   navigate('/home');
 };
 

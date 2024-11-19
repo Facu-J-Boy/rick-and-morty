@@ -3,7 +3,7 @@ import React from 'react';
 interface selectParams {
   name: string;
   elements: string[] | undefined;
-  itemSelected: string;
+  itemSelected: string | undefined;
   onChangeItem: (gender: string) => void;
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { character } from '../../interfaces';
@@ -8,23 +8,41 @@ import { useState } from 'react';
 import Select from '../../components/Select/Select';
 import CharacterDefaultImage from '../../assets/CharacterDefaultImage.svg';
 import { addCharacterToLocalStorage } from '../../utils/localStorage';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const CharacterForm: React.FC<{ type: 'create' | 'edit' }> = ({ type }) => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch<AppDispatch>();
 
+  const { id } = useParams<{ id: string }>();
+  const { state } = useLocation() as {
+    state?: { image: string; name: string; gender: string; origin: string };
+  };
   const { genders, origins } = useSelector(
     (state: storeInterFace) => state.characters
   );
 
-  const [gender, setGender] = useState<string>('');
-  const [origin, setOrigin] = useState<string>('');
-  const [showImage, setShowImage] = useState<string>(CharacterDefaultImage);
-  const [image, setImage] = useState<File | undefined>();
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors }
+  } = useForm<{ name: string }>();
 
-  console.log({ gender, origin });
+  const [currentGender, setGender] = useState<string | undefined>('');
+  const [currentOrigin, setOrigin] = useState<string>('');
+  const [showImage, setShowImage] = useState<string>(CharacterDefaultImage);
+  //   const [image, setImage] = useState<File | undefined>();
+
+  useEffect(() => {
+    if (type === 'edit') {
+      state?.image && setShowImage(state.image);
+      state?.gender && setGender(state.gender);
+      state?.origin && setOrigin(state.origin);
+      state?.name && setValue('name', state.name);
+    }
+  }, [type, state, setValue]);
 
   const setFileToBase = (file: File | undefined) => {
     if (file) {
@@ -39,25 +57,21 @@ const CharacterForm: React.FC<{ type: 'create' | 'edit' }> = ({ type }) => {
   const handleFileChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = ev.target.files?.[0];
     setFileToBase(selectedFile);
-    setImage(selectedFile);
+    // setImage(selectedFile);
   };
-
-  const {
-    register,
-    watch,
-    formState: { errors }
-  } = useForm<{ name: string }>();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data: character = {
+    const data = {
       image: showImage,
       name: watch('name'),
-      gender,
-      origin: { name: origin }
+      gender: currentGender,
+      origin: { name: currentOrigin }
     };
     if (type === 'create') {
-      addCharacterToLocalStorage({ character: data, navigate, dispatch });
+      if (data.image && data.name && data.gender && data.origin.name) {
+        addCharacterToLocalStorage({ character: data, navigate, dispatch });
+      }
     }
     console.log(data);
   };
@@ -108,13 +122,13 @@ const CharacterForm: React.FC<{ type: 'create' | 'edit' }> = ({ type }) => {
           <Select
             name='Gender'
             elements={genders}
-            itemSelected={gender}
+            itemSelected={currentGender}
             onChangeItem={setGender}
           />
           <Select
             name='Origin'
             elements={origins}
-            itemSelected={origin}
+            itemSelected={currentOrigin}
             onChangeItem={setOrigin}
           />
         </div>
@@ -122,13 +136,13 @@ const CharacterForm: React.FC<{ type: 'create' | 'edit' }> = ({ type }) => {
           disabled={
             showImage === CharacterDefaultImage ||
             !watch('name') ||
-            !gender ||
-            !origin
+            !currentGender ||
+            !currentOrigin
           }
           type='submit'
           className='w-100 mt-5 btn btn-dark'
         >
-          Create
+          {type.charAt(0).toUpperCase() + type.slice(1)}
         </button>
       </form>
     </div>
