@@ -1,0 +1,20 @@
+.form_layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 50vw;
+  padding: 50px;
+}
+
+.form:hover {
+  box-shadow: 0 16px 18px rgba(0, 0, 0, 0.2);
+}
