@@ -23,6 +23,23 @@ const characterSlice = createSlice({
   reducers: {
     addCharacter: (state, action: PayloadAction<character>) => {
       state.characters.push(action.payload);
+    },
+    editCharacter: (state, action: PayloadAction<character>) => {
+      const { id, name, gender, origin, image } = action.payload;
+      const characterIndex = state.characters.findIndex(
+        (char) => char.id === id
+      );
+
+      if (characterIndex !== -1) {
+        // Actualizar el personaje encontrado
+        state.characters[characterIndex] = {
+          ...state.characters[characterIndex], // Mantén las propiedades anteriores
+          name, // Actualiza las propiedades necesarias
+          gender,
+          origin,
+          image
+        };
+      }
     }
   },
   extraReducers: (builder) => {
@@ -59,6 +76,6 @@ const characterSlice = createSlice({
   }
 });
 
-export const { addCharacter } = characterSlice.actions;
+export const { addCharacter, editCharacter } = characterSlice.actions;
 
 export default characterSlice.reducer;

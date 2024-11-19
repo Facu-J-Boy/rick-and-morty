@@ -9,6 +9,7 @@ import Select from '../../components/Select/Select';
 import CharacterDefaultImage from '../../assets/CharacterDefaultImage.svg';
 import { addCharacterToLocalStorage } from '../../utils/localStorage';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { editCharacter } from '../../redux/reducers/charactersReducer';
 
 const CharacterForm: React.FC<{ type: 'create' | 'edit' }> = ({ type }) => {
   const navigate = useNavigate();
@@ -72,6 +73,9 @@ const CharacterForm: React.FC<{ type: 'create' | 'edit' }> = ({ type }) => {
       if (data.image && data.name && data.gender && data.origin.name) {
         addCharacterToLocalStorage({ character: data, navigate, dispatch });
       }
+    } else {
+      dispatch(editCharacter({ id: Math.floor(Number(id)), ...data }));
+      navigate('/home');
     }
     console.log(data);
   };
