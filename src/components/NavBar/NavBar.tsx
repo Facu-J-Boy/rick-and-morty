@@ -4,10 +4,24 @@ import styles from './NavBar.module.css';
 import { getCurrentUser, logOut } from '../../utils/localStorage';
 import { useState, useEffect } from 'react';
 import { userForm } from '../../interfaces';
+import { useSelector } from 'react-redux';
+import { storeInterFace } from '../../redux/store';
+import Select from '../Select/Select';
 
-const NavBar = () => {
+interface NavBarProps {
+  searchTerm: string;
+  onSearchChange: (term: string) => void;
+}
+
+const NavBar: React.FC<NavBarProps> = ({ searchTerm, onSearchChange }) => {
   const navigate = useNavigate();
+
+  const { characters } = useSelector(
+    (state: storeInterFace) => state.characters
+  );
+
   const [currentUser, setCurrentUser] = useState<userForm | null>(null);
+
   useEffect(() => {
     const user = getCurrentUser();
     user && setCurrentUser(user);
@@ -17,11 +31,14 @@ const NavBar = () => {
     logOut();
     setCurrentUser(null);
   };
+
   return (
     <div className={styles.nav_bar}>
       <div className='input-group w-50 h-20 m-3'>
         <input
           type='text'
+          value={searchTerm}
+          onChange={(e) => onSearchChange(e.target.value)}
           className='form-control '
           placeholder='Search'
           aria-label='Search'
@@ -40,8 +57,22 @@ const NavBar = () => {
         </button>
       ) : (
         <>
-          <span>{currentUser.userName}</span>
-          <button onClick={LogOut}>LogOut</button>
+          <button type='button' className='btn btn-success'>
+            Create character
+          </button>
+          <div className='dropdown'>
+            <button
+              className='btn btn-secondary dropdown-toggle'
+              type='button'
+              data-bs-toggle='dropdown'
+              aria-expanded='false'
+            >
+              {currentUser.userName}
+            </button>
+            <ul className='dropdown-menu'>
+              <li onClick={LogOut}>Log out</li>
+            </ul>
+          </div>
         </>
       )}
     </div>

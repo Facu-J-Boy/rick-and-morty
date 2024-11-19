@@ -2,6 +2,8 @@ export interface character {
   id: number;
   name: string;
   image: string;
+  gender: string;
+  origin: { name: string };
 }
 
 export interface notification {

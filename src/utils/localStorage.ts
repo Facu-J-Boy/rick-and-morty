@@ -15,7 +15,7 @@ export const saveUser = ({ user, navigate }: localStorageData) => {
   );
   if (userExists) {
     return Swal.fire({
-      position: 'top-end',
+      position: 'top',
       icon: 'error',
       title: 'El usuario ya está registrado.',
       showConfirmButton: false,
@@ -29,7 +29,7 @@ export const saveUser = ({ user, navigate }: localStorageData) => {
   localStorage.setItem('users', JSON.stringify(users));
   localStorage.setItem('currentUser', JSON.stringify(user));
   Swal.fire({
-    position: 'top-end',
+    position: 'top',
     icon: 'success',
     title: 'Usuario registrado exitosamente.',
     showConfirmButton: false,
@@ -50,7 +50,7 @@ export const findUser = ({ user: data, navigate }: localStorageData) => {
   if (user) {
     localStorage.setItem('currentUser', JSON.stringify(user));
     Swal.fire({
-      position: 'top-end',
+      position: 'top',
       icon: 'success',
       title: `Bienvenido, ${user.userName}!`,
       showConfirmButton: false,
@@ -59,7 +59,7 @@ export const findUser = ({ user: data, navigate }: localStorageData) => {
     navigate('/home');
   } else {
     Swal.fire({
-      position: 'top-end',
+      position: 'top',
       icon: 'error',
       title: 'Credenciales incorrectas.',
       showConfirmButton: false,
