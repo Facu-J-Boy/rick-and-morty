@@ -1,9 +1,16 @@
-import { userForm } from '../interfaces';
+import { character, userForm } from '../interfaces';
 import Swal from 'sweetalert2';
+import { addCharacter } from '../redux/reducers/charactersReducer';
 
 interface localStorageData {
   user: userForm;
   navigate: (path: string) => void;
+}
+
+interface characterLocalStorage {
+  character: character;
+  navigate: (path: string) => void;
+  dispatch: any;
 }
 
 export const saveUser = ({ user, navigate }: localStorageData) => {
@@ -74,4 +81,38 @@ export const getCurrentUser = () => {
 
 export const logOut = () => {
   localStorage.removeItem('currentUser');
+};
+
+export const addCharacterToLocalStorage = ({
+  character,
+  navigate,
+  dispatch
+}: characterLocalStorage) => {
+  // Recuperar los personajes existentes del localStorage
+  const { name, gender, origin, image } = character;
+  const characters = JSON.parse(localStorage.getItem('characters') || '[]');
+
+  // Crear el nuevo personaje
+  const newCharacter = {
+    id: Math.floor(Math.random() * 100) + 21, // Número aleatorio mayor a 20
+    name,
+    gender,
+    origin,
+    image
+  };
+
+  // Agregar el nuevo personaje a la lista
+  const updatedCharacters = [...characters, newCharacter];
+
+  // Guardar en localStorage
+  localStorage.setItem('characters', JSON.stringify(updatedCharacters));
+
+  dispatch(addCharacter(newCharacter));
+
+  navigate('/home');
+};
+
+export const getAllCharactersFromLocalStorage = () => {
+  const characters = JSON.parse(localStorage.getItem('characters') || '[]');
+  return characters;
 };

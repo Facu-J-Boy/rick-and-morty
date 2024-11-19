@@ -57,8 +57,14 @@ const NavBar: React.FC<NavBarProps> = ({ searchTerm, onSearchChange }) => {
         </button>
       ) : (
         <>
-          <button type='button' className='btn btn-success'>
-            Create character
+          <button
+            type='button'
+            className='btn btn-success'
+            onClick={() => {
+              navigate('/create');
+            }}
+          >
+            Add character
           </button>
           <div className='dropdown'>
             <button

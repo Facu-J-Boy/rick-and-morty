@@ -1,21 +1,18 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, storeInterFace } from '../../redux/store';
-import { getAllCharacters } from '../../services/getAllCharacters';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { storeInterFace } from '../../redux/store';
 import CardCharacter from '../../components/CardCharacter/CardCharacter';
 import NavBar from '../../components/NavBar/NavBar';
 import styles from './Home.module.css';
 import Select from '../../components/Select/Select';
+import { getAllCharactersFromLocalStorage } from '../../utils/localStorage';
 
 const Home = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
-  const { charactersLoading, characters } = useSelector(
+  const { charactersLoading, characters, genders, origins } = useSelector(
     (state: storeInterFace) => state.characters
   );
-  useEffect(() => {
-    !characters.length && dispatch(getAllCharacters());
-  }, []);
+
+  console.log('Character localStorage: ', getAllCharactersFromLocalStorage());
 
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedGender, setSelectedGender] = useState<string>('');
@@ -48,11 +45,6 @@ const Home = () => {
       : true;
     return matchesName && matchesGender && matchesOrigin;
   });
-
-  const genders = [...new Set(characters.map((character) => character.gender))];
-  const origins = [
-    ...new Set(characters.map((character) => character.origin.name))
-  ];
 
   console.log({ characters });
 
