@@ -74,7 +74,9 @@ const Home = () => {
         </button>
       </div>
       {charactersLoading ? (
-        <h1>Loading...</h1>
+        <div className='spinner-border' role='status'>
+          <span className='visually-hidden'>Loading...</span>
+        </div>
       ) : (
         <div className={styles.characters}>
           {!filteredCharacters.length && <h1>Character not found</h1>}
