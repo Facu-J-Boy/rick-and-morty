@@ -77,7 +77,6 @@ const CharacterForm: React.FC<{ type: 'create' | 'edit' }> = ({ type }) => {
       dispatch(editCharacter({ id: Math.floor(Number(id)), ...data }));
       navigate('/home');
     }
-    console.log(data);
   };
 
   return (

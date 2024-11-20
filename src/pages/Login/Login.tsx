@@ -27,8 +27,6 @@ const Login: React.FC<{ type: 'login' | 'signup' }> = ({ type }) => {
     } else {
       saveUser({ user: { userName, email, password }, navigate });
     }
-
-    console.log({ email, password });
   };
 
   return (

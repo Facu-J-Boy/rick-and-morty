@@ -30,8 +30,6 @@ export const saveUser = ({ user, navigate }: localStorageData) => {
     });
   }
 
-  console.log('new user: ', user);
-
   users.push(user);
   localStorage.setItem('users', JSON.stringify(users));
   localStorage.setItem('currentUser', JSON.stringify(user));
@@ -51,8 +49,6 @@ export const findUser = ({ user: data, navigate }: localStorageData) => {
     (u: { email: string; password: string }) =>
       u.email === data.email && u.password === data.password
   );
-
-  console.log({ user });
 
   if (user) {
     localStorage.setItem('currentUser', JSON.stringify(user));

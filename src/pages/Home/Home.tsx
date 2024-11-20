@@ -15,8 +15,6 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  console.log('Character localStorage: ', getAllCharactersFromLocalStorage());
-
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedGender, setSelectedGender] = useState<string>('');
   const [selectedOrigin, setSelectedOrigin] = useState<string>('');
@@ -48,10 +46,6 @@ const Home = () => {
       : true;
     return matchesName && matchesGender && matchesOrigin;
   });
-
-  console.log({ characters });
-
-  console.log('allUsers: ', JSON.parse(localStorage.getItem('users') || '[]'));
 
   return (
     <div className={styles.home}>
