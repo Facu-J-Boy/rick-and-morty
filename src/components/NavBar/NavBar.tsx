@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { userForm } from '../../interfaces';
 import { useSelector } from 'react-redux';
 import { storeInterFace } from '../../redux/store';
-import Select from '../Select/Select';
+import logo from '../../assets/logo.svg';
 
 interface NavBarProps {
   searchTerm: string;
@@ -34,38 +34,32 @@ const NavBar: React.FC<NavBarProps> = ({ searchTerm, onSearchChange }) => {
 
   return (
     <div className={styles.nav_bar}>
-      <div className='input-group w-50 h-20 m-3'>
-        <input
-          type='text'
-          value={searchTerm}
-          onChange={(e) => onSearchChange(e.target.value)}
-          className='form-control '
-          placeholder='Search'
-          aria-label='Search'
-          aria-describedby='basic-addon1'
-        />
+      <div className={styles.logo_container}>
+        <img className={styles.logo} src={logo} />
       </div>
-      {!currentUser ? (
-        <button
-          type='button'
-          className='btn btn-dark'
-          onClick={() => {
-            navigate('/login');
-          }}
-        >
-          Login
-        </button>
-      ) : (
-        <>
-          {/* <button
+      <div className={styles.nav_elements}>
+        <div className='input-group w-50 h-20 m-3'>
+          <input
+            type='text'
+            value={searchTerm}
+            onChange={(e) => onSearchChange(e.target.value)}
+            className='form-control '
+            placeholder='Search'
+            aria-label='Search'
+            aria-describedby='basic-addon1'
+          />
+        </div>
+        {!currentUser ? (
+          <button
             type='button'
-            className='btn btn-success'
+            className='btn btn-dark'
             onClick={() => {
-              navigate('/create');
+              navigate('/login');
             }}
           >
-            Add character
-          </button> */}
+            Login
+          </button>
+        ) : (
           <div className='dropdown'>
             <button
               className='btn btn-secondary dropdown-toggle'
@@ -79,8 +73,8 @@ const NavBar: React.FC<NavBarProps> = ({ searchTerm, onSearchChange }) => {
               <li onClick={LogOut}>Log out</li>
             </ul>
           </div>
-        </>
-      )}
+        )}
+      </div>
     </div>
   );
 };

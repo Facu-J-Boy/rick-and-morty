@@ -1,7 +1,38 @@
 .nav_bar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 90vw;
   margin-bottom: 10px;
+}
+
+.nav_elements {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.logo_container {
+  display: inline;
+  justify-content: center;
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.logo {
+  width: 150px;
+}
+
+@media screen and (max-width: 768px) {
+  .nav_bar {
+    flex-direction: column;
+  }
+
+  .logo_container {
+    margin-left: 5px;
+  }
+
+  .logo {
+    width: 70px;
+  }
 }
