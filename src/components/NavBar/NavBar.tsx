@@ -57,7 +57,7 @@ const NavBar: React.FC<NavBarProps> = ({ searchTerm, onSearchChange }) => {
         </button>
       ) : (
         <>
-          <button
+          {/* <button
             type='button'
             className='btn btn-success'
             onClick={() => {
@@ -65,7 +65,7 @@ const NavBar: React.FC<NavBarProps> = ({ searchTerm, onSearchChange }) => {
             }}
           >
             Add character
-          </button>
+          </button> */}
           <div className='dropdown'>
             <button
               className='btn btn-secondary dropdown-toggle'

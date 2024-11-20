@@ -49,3 +49,10 @@
   opacity: 0;
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+  .characterForm form {
+    width: 100vw;
+    padding: 5px;
+  }
+}

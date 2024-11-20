@@ -6,11 +6,14 @@ import NavBar from '../../components/NavBar/NavBar';
 import styles from './Home.module.css';
 import Select from '../../components/Select/Select';
 import { getAllCharactersFromLocalStorage } from '../../utils/localStorage';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const { charactersLoading, characters, genders, origins } = useSelector(
     (state: storeInterFace) => state.characters
   );
+
+  const navigate = useNavigate();
 
   console.log('Character localStorage: ', getAllCharactersFromLocalStorage());
 
@@ -66,6 +69,15 @@ const Home = () => {
           itemSelected={selectedOrigin}
           onChangeItem={handleOriginChange}
         />
+        <button
+          type='button'
+          className='btn btn-success me-5 btn-sm'
+          onClick={() => {
+            navigate('/create');
+          }}
+        >
+          Add character
+        </button>
       </div>
       {charactersLoading ? (
         <h1>Loading...</h1>
