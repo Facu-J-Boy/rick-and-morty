@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, storeInterFace } from './redux/store';
 import { useEffect } from 'react';
 import { getAllCharacters } from './services/getAllCharacters';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   const { characters } = useSelector(
@@ -33,6 +34,10 @@ function App() {
         <Route path='/signup' element={<Login type='signup' />} />
         <Route path='/create' element={<CharacterForm type='create' />} />
         <Route path='/edit/:id' element={<CharacterForm type='edit' />} />
+        {/* Ruta de error */}
+        <Route path='*' element={<NotFound />} />
+        {/* Redirige a la ruta de error cuando no se encuentra una ruta */}
+        <Route path='404' element={<Navigate to='/404' />} />
       </Routes>
     </Router>
   );
